@@ -102,6 +102,12 @@
 
         <li>
 
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">generator-react-webpack.</span>postcss</span>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">generator-react-webpack.</span>yeoman</span>
 
         </li>
@@ -776,6 +782,19 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.generator-react-webpack.postcss">module generator-react-webpack.postcss</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.generator-react-webpack.postcss.write">
+            function <span class="apidocSignatureSpan">generator-react-webpack.postcss.</span>write
+            <span class="apidocSignatureSpan">(path)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
     <li class="apidocModuleLi"><a href="#apidoc.module.generator-react-webpack.yeoman">module generator-react-webpack.yeoman</a><ol>
 
         <li>
@@ -937,6 +956,8 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
+
+
 
 
 
@@ -2622,7 +2643,23 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
   let config = getSetting(setting);
   return config &#x26;&#x26; Array.isArray(config.options) ? config.options : null;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  message: &#x27;Please choose your application name&#x27;,
+  default: utils.yeoman.getAppName()
+},
+{
+  type: &#x27;list&#x27;,
+  name: &#x27;style&#x27;,
+  message: &#x27;Which style language do you want to use?&#x27;,
+  choices: utils.config.<span class="apidocCodeKeywordSpan">getChoices</span>(&#x27;style&#x27;),
+  default: utils.config.getDefaultChoice(&#x27;style&#x27;)
+},
+{
+  type: &#x27;confirm&#x27;,
+  name: &#x27;postcss&#x27;,
+  message: &#x27;Enable postcss?&#x27;,
+  default: false
+...</pre></li>
     </ul>
 
 
@@ -2638,7 +2675,23 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
   let config = getSetting(setting);
   return config &#x26;&#x26; config.default !== undefined &#x26;&#x26; config.default.length &#x3e; 0 ? config.default : null;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  default: utils.yeoman.getAppName()
+},
+{
+  type: &#x27;list&#x27;,
+  name: &#x27;style&#x27;,
+  message: &#x27;Which style language do you want to use?&#x27;,
+  choices: utils.config.getChoices(&#x27;style&#x27;),
+  default: utils.config.<span class="apidocCodeKeywordSpan">getDefaultChoice</span>(&#x27;style&#x27;)
+},
+{
+  type: &#x27;confirm&#x27;,
+  name: &#x27;postcss&#x27;,
+  message: &#x27;Enable postcss?&#x27;,
+  default: false
+}
+...</pre></li>
     </ul>
 
 
@@ -2652,6 +2705,54 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
     <ul>
     <li>description and source-code<pre class="apidocCodePre">(setting) =&#x3e; {
   return opts[setting] !== undefined ? opts[setting] : null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.generator-react-webpack.postcss" id="apidoc.module.generator-react-webpack.postcss">module generator-react-webpack.postcss</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.generator-react-webpack.postcss.write" id="apidoc.element.generator-react-webpack.postcss.write">
+        function <span class="apidocSignatureSpan">generator-react-webpack.postcss.</span>write
+        <span class="apidocSignatureSpan">(path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">write = function (path) {
+  let baseConfigPath = path;
+  let cssDialects = [&#x27;/\\.css$/&#x27;, &#x27;/\\.sass/&#x27;, &#x27;/\\.scss/&#x27;, &#x27;/\\.less/&#x27;, &#x27;/\\.styl/&#x27;];
+
+  let postcss = &#x27;var postcss = { postcss: function() { return []; } }&#x27;;
+  postcss = esprima.parse(postcss);
+  postcss = postcss.body[0].declarations[0].init.properties[0];
+
+  let data = fs.readFileSync(baseConfigPath, &#x27;utf8&#x27;);
+  let parsed = esprima.parse(data);
+
+  walk.walkAddParent(parsed, function(node) {
+    if(node.type === &#x27;AssignmentExpression&#x27; &#x26;&#x26; node.left.object.name === &#x27;module&#x27;) {
+      node.right.properties.push(postcss);
+    }
+
+    if(node.type === &#x27;Property&#x27; &#x26;&#x26; node.key.name === &#x27;test&#x27;) {
+      if(cssDialects.indexOf(node.value.raw) &#x3e; -1) {
+        let current = node.parent.properties[1].value.value;
+        let position = current.split(&#x27;!&#x27;, 2).join(&#x27;!&#x27;).length;
+        current = [current.slice(0, position), &#x27;!postcss-loader&#x27;, current.slice(position)].join(&#x27;&#x27;);
+
+        node.parent.properties[1].value.value = current;
+      }
+    }
+  });
+
+  let options = { format: { indent: { style: &#x27;  &#x27; } } };
+  let code = escodegen.generate(parsed, options);
+  fs.writeFileSync(baseConfigPath, code, &#x27;utf8&#x27;);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -2740,7 +2841,23 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
 
   return _.camelize(_.slugify(_.humanize(appName)));
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+const utils = require(&#x27;../../utils/all&#x27;);
+
+module.exports = [
+{
+  type: &#x27;input&#x27;,
+  name: &#x27;appName&#x27;,
+  message: &#x27;Please choose your application name&#x27;,
+  default: utils.yeoman.<span class="apidocCodeKeywordSpan">getAppName</span>()
+},
+{
+  type: &#x27;list&#x27;,
+  name: &#x27;style&#x27;,
+  message: &#x27;Which style language do you want to use?&#x27;,
+  choices: utils.config.getChoices(&#x27;style&#x27;),
+  default: utils.config.getDefaultChoice(&#x27;style&#x27;)
+...</pre></li>
     </ul>
 
 
