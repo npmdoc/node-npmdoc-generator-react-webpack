@@ -1,6 +1,6 @@
 # npmdoc-generator-react-webpack
 
-#### api documentation for  [generator-react-webpack (v3.3.4)](https://github.com/react-webpack-generators/generator-react-webpack#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-generator-react-webpack.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-generator-react-webpack) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-generator-react-webpack.svg)](https://travis-ci.org/npmdoc/node-npmdoc-generator-react-webpack)
+#### basic api documentation for  [generator-react-webpack (v3.3.4)](https://github.com/react-webpack-generators/generator-react-webpack#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-generator-react-webpack.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-generator-react-webpack) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-generator-react-webpack.svg)](https://travis-ci.org/npmdoc/node-npmdoc-generator-react-webpack)
 
 #### Yeoman generator for using React with Webpack via Babel
 
@@ -98,7 +98,8 @@
         "release:patch": "npm version patch && npm publish && git push --follow-tags",
         "test": "mocha"
     },
-    "version": "3.3.4"
+    "version": "3.3.4",
+    "bin": {}
 }
 ```
 
