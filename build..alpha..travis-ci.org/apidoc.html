@@ -81,6 +81,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.generator-react-webpack.index">
+            function <span class="apidocSignatureSpan">generator-react-webpack.</span>index
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.generator-react-webpack.super_">
             function <span class="apidocSignatureSpan">generator-react-webpack.</span>super_
             <span class="apidocSignatureSpan">()</span>
@@ -97,6 +106,12 @@
         <li>
 
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">generator-react-webpack.</span>config</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">generator-react-webpack.</span>index.prototype</span>
 
         </li>
 
@@ -782,6 +797,56 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.generator-react-webpack.index">module generator-react-webpack.index</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.generator-react-webpack.index.index">
+            function <span class="apidocSignatureSpan">generator-react-webpack.</span>index
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.generator-react-webpack.index.extend">
+            function <span class="apidocSignatureSpan">generator-react-webpack.index.</span>extend
+            <span class="apidocSignatureSpan">(protoProps, staticProps)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.generator-react-webpack.index.super_">
+            function <span class="apidocSignatureSpan">generator-react-webpack.index.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">generator-react-webpack.index.</span>__super__</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.generator-react-webpack.index.prototype">module generator-react-webpack.index.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.generator-react-webpack.index.prototype.writing">
+            function <span class="apidocSignatureSpan">generator-react-webpack.index.prototype.</span>writing
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
     <li class="apidocModuleLi"><a href="#apidoc.module.generator-react-webpack.postcss">module generator-react-webpack.postcss</a><ol>
 
         <li>
@@ -939,6 +1004,42 @@
 
   return child;
 }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+let path = require(&#x27;path&#x27;);
+let fs = require(&#x27;fs&#x27;);
+const packageInfo = require(&#x27;../../package.json&#x27;);
+
+// Set the base root directory for our files
+let baseRootPath = path.dirname(require.resolve(&#x27;react-webpack-template&#x27;));
+
+module.exports = generator.Base.<span class="apidocCodeKeywordSpan">extend</span>({
+
+  constructor: function() {
+generator.Base.apply(this, arguments);
+
+// Make options available
+this.option(&#x27;skip-welcome-message&#x27;, {
+  desc: &#x27;Skip the welcome message&#x27;,
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.generator-react-webpack.index" id="apidoc.element.generator-react-webpack.index">
+        function <span class="apidocSignatureSpan">generator-react-webpack.</span>index
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">index = function () {
+  generator.Base.apply(this, arguments);
+  this.argument(&#x27;name&#x27;, { type: String, required: true });
+  this.option(&#x27;stateless&#x27;, {
+    desc: &#x27;Create a stateless component instead of a full one&#x27;,
+    defaults: false
+  });
+}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
@@ -956,6 +1057,8 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
+
+
 
 
 
@@ -1267,7 +1370,23 @@
   this.checkRequiredArgs();
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+let generator = require(&#x27;yeoman-generator&#x27;);
+let utils = require(&#x27;../../utils/all&#x27;);
+
+module.exports = generator.Base.extend({
+
+constructor: function() {
+  generator.Base.apply(this, arguments);
+  this.<span class="apidocCodeKeywordSpan">argument</span>(&#x27;name&#x27;, { type: String, required: true });
+  this.option(&#x27;stateless&#x27;, {
+    desc: &#x27;Create a stateless component instead of a full one&#x27;,
+    defaults: false
+  });
+},
+
+writing: function() {
+...</pre></li>
     </ul>
 
 
@@ -1386,7 +1505,23 @@
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if(excludeList.indexOf(item) !== -1) {
+  continue;
+}
+
+// Copy all items to our root
+let fullPath = path.join(baseRootPath, item);
+if(fs.lstatSync(fullPath).isDirectory()) {
+  this.<span class="apidocCodeKeywordSpan">bulkDirectory</span>(item, item);
+} else {
+  if (item === &#x27;.npmignore&#x27;) {
+    this.copy(item, &#x27;.gitignore&#x27;);
+  } else {
+    this.copy(item, item);
+  }
+}
+...</pre></li>
     </ul>
 
 
@@ -1476,7 +1611,23 @@
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+      // Copy all items to our root
+      let fullPath = path.join(baseRootPath, item);
+      if(fs.lstatSync(fullPath).isDirectory()) {
+        this.bulkDirectory(item, item);
+      } else {
+        if (item === &#x27;.npmignore&#x27;) {
+          this.<span class="apidocCodeKeywordSpan">copy</span>(item, &#x27;.gitignore&#x27;);
+        } else {
+          this.copy(item, item);
+        }
+      }
+    }
+  });
+},
+...</pre></li>
     </ul>
 
 
@@ -1528,7 +1679,23 @@
 
   return filepath;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if(this.postcss &#x26;&#x26; postcssConfig &#x26;&#x26; postcssConfig.packages) {
+
+  for(let dependency of postcssConfig.packages) {
+    packageSettings.devDependencies[dependency.name] = dependency.version;
+  }
+}
+
+this.fs.writeJSON(this.<span class="apidocCodeKeywordSpan">destinationPath</span>(&#x27;package.json&#x27;), packageSettings);
+  },
+
+  writing: function() {
+
+let excludeList = [
+  &#x27;LICENSE&#x27;,
+  &#x27;README.md&#x27;,
+...</pre></li>
     </ul>
 
 
@@ -1557,7 +1724,23 @@
 
   return this._destinationRoot || this.env.cwd;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }
+    });
+  },
+
+  install: function() {
+    if(this.postcss) {
+      let postcss = require(&#x27;./postcss&#x27;);
+      postcss.write(path.join(this.<span class="apidocCodeKeywordSpan">destinationRoot</span>(), &#x27;cfg/defaults.js&#x27;));
+    }
+
+    if(!this.options[&#x27;skip-install&#x27;]) {
+      this.installDependencies({ bower: false });
+    }
+  }
+});
+...</pre></li>
     </ul>
 
 
@@ -1815,7 +1998,19 @@
 
   async.parallel(commands, options.callback);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  install: function() {
+    if(this.postcss) {
+      let postcss = require(&#x27;./postcss&#x27;);
+      postcss.write(path.join(this.destinationRoot(), &#x27;cfg/defaults.js&#x27;));
+    }
+
+    if(!this.options[&#x27;skip-install&#x27;]) {
+      this.<span class="apidocCodeKeywordSpan">installDependencies</span>({ bower: false });
+    }
+  }
+});
+...</pre></li>
     </ul>
 
 
@@ -1915,7 +2110,23 @@
   this.parseOptions();
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+module.exports = generator.Base.extend({
+
+  constructor: function() {
+generator.Base.apply(this, arguments);
+
+// Make options available
+this.<span class="apidocCodeKeywordSpan">option</span>(&#x27;skip-welcome-message&#x27;, {
+  desc: &#x27;Skip the welcome message&#x27;,
+  type: Boolean,
+  defaults: false
+});
+this.option(&#x27;skip-install&#x27;);
+
+// Use our plain template as source
+...</pre></li>
     </ul>
 
 
@@ -2041,7 +2252,23 @@
   }.bind(this));
 
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    if(!this.options[&#x27;skip-welcome-message&#x27;]) {
+this.log(require(&#x27;yeoman-welcome&#x27;));
+this.log(&#x27;Out of the box I include Webpack and some default React components.\n&#x27;);
+    }
+  },
+
+  prompting: function() {
+    return this.<span class="apidocCodeKeywordSpan">prompt</span>(prompts, function(props) {
+
+// Make sure to get the correct app name if it is not the default
+if(props.appName !== utils.yeoman.getAppName()) {
+  props.appName = utils.yeoman.getAppName(props.appName);
+}
+
+// Set needed global vars for yo
+...</pre></li>
     </ul>
 
 
@@ -2300,7 +2527,23 @@
   _.invokeMap(this._composedWith, &#x27;run&#x27;);
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+/**
+ * Global before load function. Run in the before callbacks
+ * @param  {Object} prompts List of prompts to use
+ * @return {Promise}
+ */
+const beforeLoad = (prompts) =&#x3e; {
+
+return helpers.<span class="apidocCodeKeywordSpan">run</span>(generatorBase)
+  .inTmpDir()
+  .withOptions({
+    &#x27;skip-welcome-message&#x27;: true,
+    &#x27;skip-install&#x27;: true
+  })
+  .withPrompts(prompts)
+  .toPromise();
+...</pre></li>
     </ul>
 
 
@@ -2397,7 +2640,23 @@
 
   return this._sourceRoot;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    desc: &#x27;Skip the welcome message&#x27;,
+    type: Boolean,
+    defaults: false
+  });
+  this.option(&#x27;skip-install&#x27;);
+
+  // Use our plain template as source
+  this.<span class="apidocCodeKeywordSpan">sourceRoot</span>(baseRootPath);
+
+  this.config.save();
+},
+
+initializing: function() {
+  if(!this.options[&#x27;skip-welcome-message&#x27;]) {
+    this.log(require(&#x27;yeoman-welcome&#x27;));
+...</pre></li>
     </ul>
 
 
@@ -2492,7 +2751,23 @@
 
   return filepath;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  writing: function() {
+
+let settings = utils.yeoman.getAllSettingsFromComponentName(this.name, this.config.get(&#x27;style&#x27;));
+let componentType = this.options.stateless ? &#x27;Stateless&#x27; : &#x27;Base&#x27;;
+
+// Create the style template
+this.fs.copyTpl(
+  this.<span class="apidocCodeKeywordSpan">templatePath</span>(`styles/Component${settings.style.suffix}`),
+  this.destinationPath(settings.style.path + settings.style.fileName),
+  settings
+);
+
+// Create the component
+this.fs.copyTpl(
+  this.templatePath(`components/${componentType}.js`),
+...</pre></li>
     </ul>
 
 
@@ -2554,7 +2829,23 @@
   this.fs.write(this.destinationPath(filepath), content);
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }
+    });
+  },
+
+  install: function() {
+    if(this.postcss) {
+      let postcss = require(&#x27;./postcss&#x27;);
+      postcss.<span class="apidocCodeKeywordSpan">write</span>(path.join(this.destinationRoot(), &#x27;cfg/defaults.js&#x27;));
+    }
+
+    if(!this.options[&#x27;skip-install&#x27;]) {
+      this.installDependencies({ bower: false });
+    }
+  }
+});
+...</pre></li>
     </ul>
 
 
@@ -2706,6 +2997,171 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
     <li>description and source-code<pre class="apidocCodePre">(setting) =&#x3e; {
   return opts[setting] !== undefined ? opts[setting] : null;
 }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+let originalSettings = require(&#x27;../../utils/configopts.json&#x27;);
+
+describe(&#x27;Utilities:Config&#x27;, () =&#x3e; {
+
+  describe(&#x27;#getSetting&#x27;, () =&#x3e; {
+
+    it(&#x27;should return &#x22;null&#x22; if the key could not be found&#x27;, () =&#x3e; {
+expect(utils.<span class="apidocCodeKeywordSpan">getSetting</span>(&#x27;bogus&#x27;)).to.be.null;
+    });
+
+    it(&#x27;should return a settings object if it exists&#x27;, () =&#x3e; {
+
+let result = utils.getSetting(&#x27;style&#x27;);
+expect(result).to.be.an.object;
+expect(result).to.deep.equal(originalSettings.style);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.generator-react-webpack.index" id="apidoc.module.generator-react-webpack.index">module generator-react-webpack.index</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.generator-react-webpack.index.index" id="apidoc.element.generator-react-webpack.index.index">
+        function <span class="apidocSignatureSpan">generator-react-webpack.</span>index
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">index = function () {
+  generator.Base.apply(this, arguments);
+  this.argument(&#x27;name&#x27;, { type: String, required: true });
+  this.option(&#x27;stateless&#x27;, {
+    desc: &#x27;Create a stateless component instead of a full one&#x27;,
+    defaults: false
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.generator-react-webpack.index.extend" id="apidoc.element.generator-react-webpack.index.extend">
+        function <span class="apidocSignatureSpan">generator-react-webpack.index.</span>extend
+        <span class="apidocSignatureSpan">(protoProps, staticProps)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function extend(protoProps, staticProps) {
+  var parent = this;
+  var child;
+
+  // The constructor function for the new subclass is either defined by you
+  // (the &#x22;constructor&#x22; property in your `extend` definition), or defaulted
+  // by us to simply call the parent&#x27;s constructor.
+  if (protoProps &#x26;&#x26; hasOwnProp.call(protoProps, &#x27;constructor&#x27;)) {
+    child = protoProps.constructor;
+  } else {
+    child = function () { return parent.apply(this, arguments); };
+  }
+
+  // Add static properties to the constructor function, if supplied.
+  objectAssign(child, parent, staticProps);
+
+  // Set the prototype chain to inherit from `parent`
+  child.prototype = Object.create(parent.prototype, {
+    constructor: {
+      value: child,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+
+  // Add prototype properties (instance properties) to the subclass,
+  // if supplied.
+  if (protoProps) objectAssign(child.prototype, protoProps);
+
+  // Set a convenience property in case the parent&#x27;s prototype is needed
+  // later.
+  child.__super__ = parent.prototype;
+
+  return child;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+let path = require(&#x27;path&#x27;);
+let fs = require(&#x27;fs&#x27;);
+const packageInfo = require(&#x27;../../package.json&#x27;);
+
+// Set the base root directory for our files
+let baseRootPath = path.dirname(require.resolve(&#x27;react-webpack-template&#x27;));
+
+module.exports = generator.Base.<span class="apidocCodeKeywordSpan">extend</span>({
+
+  constructor: function() {
+generator.Base.apply(this, arguments);
+
+// Make options available
+this.option(&#x27;skip-welcome-message&#x27;, {
+  desc: &#x27;Skip the welcome message&#x27;,
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.generator-react-webpack.index.super_" id="apidoc.element.generator-react-webpack.index.super_">
+        function <span class="apidocSignatureSpan">generator-react-webpack.index.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.generator-react-webpack.index.prototype" id="apidoc.module.generator-react-webpack.index.prototype">module generator-react-webpack.index.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.generator-react-webpack.index.prototype.writing" id="apidoc.element.generator-react-webpack.index.prototype.writing">
+        function <span class="apidocSignatureSpan">generator-react-webpack.index.prototype.</span>writing
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">writing = function () {
+
+  let settings = utils.yeoman.getAllSettingsFromComponentName(this.name, this.config.get(&#x27;style&#x27;));
+  let componentType = this.options.stateless ? &#x27;Stateless&#x27; : &#x27;Base&#x27;;
+
+  // Create the style template
+  this.fs.copyTpl(
+    this.templatePath(`styles/Component${settings.style.suffix}`),
+    this.destinationPath(settings.style.path + settings.style.fileName),
+    settings
+  );
+
+  // Create the component
+  this.fs.copyTpl(
+    this.templatePath(`components/${componentType}.js`),
+    this.destinationPath(settings.component.path + settings.component.fileName),
+    settings
+  );
+
+  // Create the unit test
+  this.fs.copyTpl(
+    this.templatePath(&#x27;tests/Base.js&#x27;),
+    this.destinationPath(settings.test.path + settings.test.fileName),
+    settings
+  );
+}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
@@ -2754,7 +3210,23 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
   let code = escodegen.generate(parsed, options);
   fs.writeFileSync(baseConfigPath, code, &#x27;utf8&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }
+    });
+  },
+
+  install: function() {
+    if(this.postcss) {
+      let postcss = require(&#x27;./postcss&#x27;);
+      postcss.<span class="apidocCodeKeywordSpan">write</span>(path.join(this.destinationRoot(), &#x27;cfg/defaults.js&#x27;));
+    }
+
+    if(!this.options[&#x27;skip-install&#x27;]) {
+      this.installDependencies({ bower: false });
+    }
+  }
+});
+...</pre></li>
     </ul>
 
 
@@ -2820,7 +3292,24 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
 
   return settings;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  desc: &#x27;Create a stateless component instead of a full one&#x27;,
+  defaults: false
+});
+  },
+
+  writing: function() {
+
+let settings = utils.yeoman.<span class="apidocCodeKeywordSpan">getAllSettingsFromComponentName</span>(this.name, this.config.get
+(&#x27;style&#x27;));
+let componentType = this.options.stateless ? &#x27;Stateless&#x27; : &#x27;Base&#x27;;
+
+// Create the style template
+this.fs.copyTpl(
+  this.templatePath(`styles/Component${settings.style.suffix}`),
+  this.destinationPath(settings.style.path + settings.style.fileName),
+  settings
+...</pre></li>
     </ul>
 
 
@@ -2842,21 +3331,21 @@ let testPath = configUtils.getChoiceByKey(&#x27;path&#x27;, &#x27;test&#x27;);
   return _.camelize(_.slugify(_.humanize(appName)));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-const utils = require(&#x27;../../utils/all&#x27;);
+    }
+  },
 
-module.exports = [
-{
-  type: &#x27;input&#x27;,
-  name: &#x27;appName&#x27;,
-  message: &#x27;Please choose your application name&#x27;,
-  default: utils.yeoman.<span class="apidocCodeKeywordSpan">getAppName</span>()
-},
-{
-  type: &#x27;list&#x27;,
-  name: &#x27;style&#x27;,
-  message: &#x27;Which style language do you want to use?&#x27;,
-  choices: utils.config.getChoices(&#x27;style&#x27;),
-  default: utils.config.getDefaultChoice(&#x27;style&#x27;)
+  prompting: function() {
+    return this.prompt(prompts, function(props) {
+
+// Make sure to get the correct app name if it is not the default
+if(props.appName !== utils.yeoman.<span class="apidocCodeKeywordSpan">getAppName</span>()) {
+  props.appName = utils.yeoman.getAppName(props.appName);
+}
+
+// Set needed global vars for yo
+this.appName = props.appName;
+this.style = props.style;
+this.postcss = props.postcss;
 ...</pre></li>
     </ul>
 
@@ -2872,7 +3361,22 @@ module.exports = [
     <li>description and source-code<pre class="apidocCodePre">() =&#x3e; {
   return baseName;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+let baseDir = path.basename(process.cwd());
+
+describe(&#x27;Utilities:Yeoman&#x27;, () =&#x3e; {
+
+  describe(&#x27;#getBaseDir&#x27;, () =&#x3e; {
+
+it(&#x27;should return the current run directory&#x27;, () =&#x3e; {
+  expect(utils.<span class="apidocCodeKeywordSpan">getBaseDir</span>()).to.equal(baseDir);
+});
+  });
+
+  describe(&#x27;#getCleanedPathName&#x27;, () =&#x3e; {
+
+it(&#x27;should return normalized paths&#x27;, () =&#x3e; {
+...</pre></li>
     </ul>
 
 
@@ -2898,7 +3402,22 @@ module.exports = [
     return _.camelize(_.slugify(_.humanize(path)));
   }).join(&#x27;/&#x27;) + _.capitalize(suffix);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      &#x27;my/full œ!/path!&#x27;: &#x27;my/full/path&#x27;,
+      &#x27;Test&#x27;: &#x27;test&#x27;,
+      &#x27;I am a Test Component!&#x27;: &#x27;iAmATestComponent&#x27;,
+      &#x27;A very\^specialChary!@componentName with !!!&#x27;: &#x27;aVerySpecialCharyComponentNameWith&#x27;
+    };
+
+    for(let test in tests) {
+      expect(utils.<span class="apidocCodeKeywordSpan">getCleanedPathName</span>(test)).to.be.equal(tests[test]);
+      expect(utils.getCleanedPathName(test, &#x27;suffix&#x27;)).to.be.equal(tests[test] + &#x27;Suffix&#x27;);
+    }
+  });
+});
+
+describe(&#x27;#getAppName&#x27;, () =&#x3e; {
+...</pre></li>
     </ul>
 
 
@@ -2914,7 +3433,23 @@ module.exports = [
   let fileName = path.split(&#x27;/&#x27;).pop().toLowerCase();
   return _.slugify(_.humanize(fileName)) + &#x27;-component&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    &#x27;my/full œ!/path!&#x27;: &#x27;path-component&#x27;,
+    &#x27;Test&#x27;: &#x27;test-component&#x27;,
+    &#x27;I am a Test Component!&#x27;: &#x27;i-am-a-test-component-component&#x27;,
+    &#x27;A very\^specialChary!@componentName with !!!&#x27;: &#x27;a-very-specialchary-componentname-with-component&#x27;
+  };
+
+  for(let test in tests) {
+    expect(utils.<span class="apidocCodeKeywordSpan">getComponentStyleName</span>(test)).to.be.equal(tests[test]);
+  }
+});
+  });
+
+  describe(&#x27;#getAllSettingsFromComponentName&#x27;, () =&#x3e; {
+
+it(&#x27;should get all required information for component creation from the components name&#x27;, () =&#x3e; {
+...</pre></li>
     </ul>
 
 
@@ -2931,7 +3466,25 @@ module.exports = [
   let fixedName = getDestinationPath(name, type, suffix);
   return _.capitalize(fixedName.split(&#x27;/&#x27;).pop().split(&#x27;.js&#x27;)[0]);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      expect(utils.getDestinationPath(&#x27;subfolder/test&#x27;, &#x27;store&#x27;, &#x27;Store&#x27;)).to.equal(&#x27;src/stores
+/subfolder/TestStore.js&#x27;);
+    });
+  });
+
+  describe(&#x27;#getDestinationClassName&#x27;, () =&#x3e; {
+
+    it(&#x27;should return the correct javascript class name for the given paths&#x27;, () =&#x3e; {
+      expect(utils.<span class="apidocCodeKeywordSpan">getDestinationClassName</span>(&#x27;test&#x27;, &#x27;action&#x27;, &#x27
+;Actions&#x27;)).to.equal(&#x27;TestActions&#x27;);
+      expect(utils.getDestinationClassName(&#x27;test&#x27;, &#x27;source&#x27;, &#x27;Source&#x27;)).to.equal(&#x27;TestSource&#
+x27;);
+      expect(utils.getDestinationClassName(&#x27;test&#x27;, &#x27;store&#x27;, &#x27;Store&#x27;)).to.equal(&#x27;TestStore&#x27
+;);
+    });
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -2961,7 +3514,29 @@ module.exports = [
 
   return `${fullPath}.js`;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    });
+  });
+
+  describe(&#x27;#getDestinationPath&#x27;, () =&#x3e; {
+
+    it(&#x27;should return the correct filesystem path for all components&#x27;, () =&#x3e; {
+
+expect(utils.<span class="apidocCodeKeywordSpan">getDestinationPath</span>(&#x27;test&#x27;, &#x27;action&#x27;, &#x27;Actions&#
+x27;)).to.equal(&#x27;src/actions/TestActions.js&#x27;);
+expect(utils.getDestinationPath(&#x27;subfolder/test&#x27;, &#x27;action&#x27;, &#x27;Actions&#x27;)).to.equal(&#x27;src/actions
+/subfolder/TestActions.js&#x27;);
+
+expect(utils.getDestinationPath(&#x27;test&#x27;, &#x27;source&#x27;, &#x27;Source&#x27;)).to.equal(&#x27;src/sources/TestSource
+.js&#x27;);
+expect(utils.getDestinationPath(&#x27;subfolder/test&#x27;, &#x27;source&#x27;, &#x27;Source&#x27;)).to.equal(&#x27;src/sources/
+subfolder/TestSource.js&#x27;);
+
+expect(utils.getDestinationPath(&#x27;test&#x27;, &#x27;store&#x27;, &#x27;Store&#x27;)).to.equal(&#x27;src/stores/TestStore.js&#
+x27;);
+expect(utils.getDestinationPath(&#x27;subfolder/test&#x27;, &#x27;store&#x27;, &#x27;Store&#x27;)).to.equal(&#x27;src/stores/subfolder
+/TestStore.js&#x27;);
+...</pre></li>
     </ul>
 
 
